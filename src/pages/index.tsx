@@ -1,17 +1,14 @@
-import Image from 'next/image';
-import { Geist, Geist_Mono } from 'next/font/google';
+'use client';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+import { useState } from 'react';
+import QuarryContainer from '@/components/quarries/QuarryContainer';
 
 export default function Home() {
+  const [quarryName, setQuarryName] = useState<string>('');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuarryName(e.target.value);
+  };
+
   return (
     /*<div
       className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
@@ -111,6 +108,19 @@ export default function Home() {
         </a>
       </footer>
     </div>*/
-    <h1>Привет</h1>
+    <div>
+      <h1>Мы такая-то компания</h1>
+      <h2>Работаем с такого-то года</h2>
+      <label htmlFor="quarry_name">Поиск:</label>
+      <input
+        id="quarry_name"
+        type="text"
+        value={quarryName}
+        onChange={handleChange}
+        placeholder="Введите название карьера"
+      />
+      <h2>Список карьеров:</h2>
+      <QuarryContainer />
+    </div>
   );
 }
