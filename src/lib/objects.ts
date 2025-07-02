@@ -1,4 +1,4 @@
-const objects = [
+export const objects = [
   {
     id: 'object1',
     value: 'value1',
@@ -11,11 +11,11 @@ const objects = [
     id: 'object3',
     value: 'value3',
   },
-]
+];
 
-export default function findObjectById(id: string | undefined) {
+export function findObjectById(id: string | undefined) {
   if (!id) {
-    return null
+    return null;
   }
-  return objects.find((o) => o.id === id)
+  return objects.find((o) => o.id === id);
 }
