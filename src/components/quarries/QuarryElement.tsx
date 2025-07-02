@@ -1,16 +1,29 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Quarry } from '@/domain/quarry';
 
-export default function QuarryCard(quarry: Quarry) {
+type QuarryElementProps = {
+  quarry: Quarry;
+};
+
+export default function QuarryElement({ quarry }: QuarryElementProps) {
   return (
-    <div>
+    <Link
+      href={'quarries/' + quarry.id}
+      className='block cursor-pointer hover:shadow-lg transition-shadow'
+    >
       <Image
-        src={quarry.images ? quarry.images[0] : '/placeholder'}
-        alt="quarry image"
+        src={quarry.images?.[0] || '/placeholder'}
+        alt={`Изображение карьера: ${quarry.name}`}
+        width={300}
+        height={300}
+        className='object-cover'
       />
-      <h1>{quarry.name}</h1>
-      <h2>{quarry.type}</h2>
-      <h2>{quarry.description}</h2>
-    </div>
+      <div className='p-4'>
+        <h1 className='text-xl font-bold'>{quarry.name}</h1>
+        <h2 className='text-gray-600'>{quarry.type}</h2>
+        <p className='text-sm mt-2'>{quarry.description}</p>
+      </div>
+    </Link>
   );
 }

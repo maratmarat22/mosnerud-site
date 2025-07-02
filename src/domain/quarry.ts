@@ -12,21 +12,21 @@ export const quarries: Quarry[] = [
     name: 'Люберецкий',
     type: 'песчаный',
     description: 'Карьер в Люберцах',
-    images: null,
+    images: ['/quarry-images/quarry1_test.png'],
   },
   {
     id: '2',
     name: 'Велкопоповецкий',
     type: 'песчаный',
     description: null,
-    images: null,
+    images: ['/quarry-images/quarry2_test.png'],
   },
   {
     id: '3',
     name: '***',
     type: 'гравийный',
     description: null,
-    images: null,
+    images: ['/quarry-images/quarry3_test.png'],
   },
 ];
 
