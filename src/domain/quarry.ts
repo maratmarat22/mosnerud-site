@@ -16,16 +16,17 @@ export const quarries: Quarry[] = [
   },
   {
     id: '2',
-    name: 'Велкопоповецкий',
+    name: 'Черноморский',
     type: 'песчаный',
-    description: null,
+    description:
+      'Самый древний карьер, выкопан древними украми в 6323г. от сотворения мира',
     images: ['/quarry-images/quarry2_test.png'],
   },
   {
     id: '3',
-    name: '***',
+    name: 'Третий',
     type: 'гравийный',
-    description: null,
+    description: 'Третий карьер',
     images: ['/quarry-images/quarry3_test.png'],
   },
 ];

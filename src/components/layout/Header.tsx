@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className='bg-gray-900 text-white shadow-lg'>
-      <div className='container mx-auto px-4 py-3 flex items-center justify-between'>
+    <header className='fixed top-0 left-0 w-full bg-gray-900 text-white shadow-lg z-50'>
+      <div className='max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between'>
         {/* Логотип и название */}
         <Link
           href='/'
@@ -19,7 +19,7 @@ export default function Header() {
         {/* Навигация */}
         <nav className='flex items-center space-x-6'>
           <Link
-            href='/about'
+            href='/'
             className='hover:text-amber-400 transition-colors px-2 py-1 rounded hover:bg-gray-800'
           >
             О нас

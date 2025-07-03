@@ -1,4 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from 'next/link';
 import { Quarry, quarries, findQuarryById } from '@/domain/quarry';
 
 type Props = {
@@ -6,13 +9,36 @@ type Props = {
 };
 
 export default function QuarryPage({ quarry }: Props) {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  };
+
   if (!quarry) return <h1>NOT FOUND</h1>;
 
   return (
-    <div>
-      <h1>{quarry.name} карьер</h1>
-      <h2>{quarry.description ?? 'Описание отсутствует'}</h2>
-    </div>
+    <>
+      <Head>
+        <title>{quarry.name} карьер</title>
+        <meta
+          name='description'
+          content={quarry.description ?? 'Описание отсутствует'}
+        />
+      </Head>
+      <div>
+        <Link href='/' onClick={handleClick} aria-label='Вернуться назад'>
+          ← Назад
+        </Link>
+        <h1>{quarry.name} карьер</h1>
+        <h2>{quarry.description ?? 'Описание отсутствует'}</h2>
+      </div>
+    </>
   );
 }
 

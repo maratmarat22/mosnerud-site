@@ -1,12 +1,8 @@
 export default function Home() {
-  return null;
-}
-
-export async function getStaticProps() {
-  return {
-    redirect: {
-      destination: '/about',
-      permanent: false,
-    },
-  };
+  return (
+    <div>
+      <h1>Мы такая-то компания</h1>
+      <h2>Работаем с такого-то года</h2>
+    </div>
+  );
 }
