@@ -25,14 +25,14 @@ export default function QuarryPage({ quarry }: Props) {
   return (
     <>
       <Head>
-        <title>{quarry.name} карьер</title>
+        <title>{`${quarry.name} карьер`}</title>
         <meta
-          name='description'
+          name="description"
           content={quarry.description ?? 'Описание отсутствует'}
         />
       </Head>
       <div>
-        <Link href='/' onClick={handleClick} aria-label='Вернуться назад'>
+        <Link href="/" onClick={handleClick} aria-label="Вернуться назад">
           ← Назад
         </Link>
         <h1>{quarry.name} карьер</h1>
