@@ -1,3 +1,11 @@
+## Подготовка
+
+Перед началом необходимо выполнить `npm install`, чтобы установить зависимости проекта.  
+Скрипт `fmt` форматирует все `.ts` и `.tsx` файлы с помощью Prettier,  
+а `pub` собирает проект и запускает продакшен-сервер, привязанный к IP-адресу `192.168.1.71` (**не забудьте поменять**).
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 ## Getting Started
