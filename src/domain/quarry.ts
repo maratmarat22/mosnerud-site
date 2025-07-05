@@ -3,7 +3,7 @@ export type Quarry = {
   name: string;
   type: 'sand' | 'gravel';
   description: string | null;
-  images: string[] | null;
+  images: string[];
 };
 
 export const quarries: Quarry[] = [

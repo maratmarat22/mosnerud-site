@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Quarry } from '@/domain/quarry';
-import quarryI18n from '@/i18n/quarry.json';
+import quarryI18n from '@/i18n/quarryToRu.json';
 
 type QuarryItemProps = {
   quarry: Quarry;
@@ -14,7 +14,7 @@ export default function QuarryItem({ quarry }: QuarryItemProps) {
       className="block cursor-pointer hover:shadow-lg transition-shadow"
     >
       <Image
-        src={quarry.images?.[0] || '/placeholder'}
+        src={quarry.images[0]}
         alt={`Изображение карьера: ${quarry.name}`}
         width={300}
         height={300}
