@@ -1,28 +1,29 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { quarries } from '@/domain/quarry';
+import { useState, useEffect } from 'react';
 import QuarryContainer from '@/components/quarries/QuarryContainer';
 import QuarryItem from '@/components/quarries/QuarryItem';
 import Head from 'next/head';
+import { Quarry, quarries, filterQuarries } from '@/domain/quarry';
 
 export default function Quarries() {
   const [quarryName, setQuarryName] = useState('');
-  const router = useRouter();
+  const [quarryTypes, setQuarryTypes] = useState<string[]>([]);
+  const [suggestedQuarries, setSuggestedQuarries] =
+    useState<Quarry[]>(quarries);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuarryName(e.target.value);
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuarryName(value);
   };
 
-  const handleClick = () => {
-    const selectedQuarry = quarries.find(
-      (q) => q.name.toLowerCase() === quarryName.toLowerCase(),
+  const handleSearchCheckboxChange = (type: string) => {
+    setQuarryTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
-    if (selectedQuarry) {
-      router.push(`/quarries/${selectedQuarry.id}`);
-    } else {
-      setQuarryName('');
-    }
   };
+
+  useEffect(() => {
+    setSuggestedQuarries(filterQuarries(quarryName, quarryTypes));
+  }, [quarryName, quarryTypes]);
 
   return (
     <>
@@ -48,28 +49,40 @@ export default function Quarries() {
               id="quarry-name"
               list="quarry-suggestions"
               value={quarryName}
-              onChange={handleChange}
+              onChange={handleSearchInputChange}
               placeholder="Например, Гранитный карьер"
-              className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 h-10"
+              className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 h-10"
             />
-            <button
-              onClick={handleClick}
+            {/*}<button
+              onClick={() => handleSearchButtonClick}
               className="px-4 py-1.5 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition h-7 inline-flex items-center justify-center"
             >
               Перейти
-            </button>
+            </button>{*/}
           </div>
 
-          <datalist id="quarry-suggestions">
-            {quarries.map((q) => (
-              <option key={q.id} value={q.name} />
+          <div className="flex gap-6 mt-4">
+            {[
+              { label: 'Песчаный', value: 'sand' },
+              { label: 'Гравийный', value: 'gravel' },
+            ].map(({ label, value }) => (
+              <label key={value} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  value={value}
+                  onChange={() => handleSearchCheckboxChange(value)}
+                  className="peer hidden"
+                ></input>
+                <div className="w-5 h-5 rounded border-2 border-gray-400 peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-colors"></div>
+                <span className="ml-2 text-gray-800">{label}</span>
+              </label>
             ))}
-          </datalist>
+          </div>
         </div>
 
         <h2 className="text-2xl font-semibold mb-4">Список карьеров:</h2>
         <QuarryContainer>
-          {quarries.map((q) => (
+          {suggestedQuarries.map((q) => (
             <QuarryItem key={q.id} quarry={q} />
           ))}
         </QuarryContainer>
