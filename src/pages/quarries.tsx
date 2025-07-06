@@ -2,28 +2,29 @@ import { useState, useEffect } from 'react';
 import QuarryContainer from '@/components/quarries/QuarryContainer';
 import QuarryItem from '@/components/quarries/QuarryItem';
 import Head from 'next/head';
-import { Quarry, quarries, filterQuarries } from '@/domain/quarry';
+import Quarry from '@/domain/quarry';
+import { quarriesList, filterQuarries } from '@/data/quarries';
 
 export default function Quarries() {
-  const [quarryName, setQuarryName] = useState('');
-  const [quarryTypes, setQuarryTypes] = useState<string[]>([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [searchCheckboxes, setSearchCheckboxes] = useState<string[]>([]);
   const [suggestedQuarries, setSuggestedQuarries] =
-    useState<Quarry[]>(quarries);
+    useState<Quarry[]>(quarriesList);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setQuarryName(value);
+    setSearchInput(value);
   };
 
   const handleSearchCheckboxChange = (type: string) => {
-    setQuarryTypes((prev) =>
+    setSearchCheckboxes((prev) =>
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
   };
 
   useEffect(() => {
-    setSuggestedQuarries(filterQuarries(quarryName, quarryTypes));
-  }, [quarryName, quarryTypes]);
+    setSuggestedQuarries(filterQuarries(searchInput, searchCheckboxes));
+  }, [searchInput, searchCheckboxes]);
 
   return (
     <>
@@ -48,17 +49,11 @@ export default function Quarries() {
             <input
               id="quarry-name"
               list="quarry-suggestions"
-              value={quarryName}
+              value={searchInput}
               onChange={handleSearchInputChange}
               placeholder="Например, Гранитный карьер"
               className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 h-10"
             />
-            {/*}<button
-              onClick={() => handleSearchButtonClick}
-              className="px-4 py-1.5 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition h-7 inline-flex items-center justify-center"
-            >
-              Перейти
-            </button>{*/}
           </div>
 
           <div className="flex gap-6 mt-4">

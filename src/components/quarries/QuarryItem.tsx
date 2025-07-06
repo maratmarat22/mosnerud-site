@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Quarry } from '@/domain/quarry';
+import Quarry from '@/domain/quarry';
 import quarryI18n from '@/i18n/quarryToRu.json';
 
 type QuarryItemProps = {
@@ -15,7 +15,7 @@ export default function QuarryItem({ quarry }: QuarryItemProps) {
     >
       <Image
         src={quarry.images[0]}
-        alt={`Изображение карьера: ${quarry.name}`}
+        alt={`Изображение карьера: ${quarryI18n[quarry.name as keyof typeof quarryI18n]}`}
         width={300}
         height={300}
         className="object-cover"

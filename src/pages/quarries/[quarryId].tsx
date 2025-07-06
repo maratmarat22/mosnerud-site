@@ -2,13 +2,14 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Quarry, quarries, findQuarryById } from '@/domain/quarry';
+import Quarry from '@/domain/quarry';
+import { quarriesMap, quarriesList } from '@/data/quarries';
 
-type Props = {
+type QuarryPageProps = {
   quarry: Quarry | null;
 };
 
-export default function QuarryPage({ quarry }: Props) {
+export default function QuarryPage({ quarry }: QuarryPageProps) {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -43,7 +44,7 @@ export default function QuarryPage({ quarry }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = quarries.map((q) => ({
+  const paths = quarriesList.map((q) => ({
     params: { quarryId: q.id },
   }));
 
@@ -55,7 +56,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { quarryId } = context.params as { quarryId: string };
-  const found = findQuarryById(quarryId);
+  const found = quarriesMap[quarryId];
 
   return {
     props: {

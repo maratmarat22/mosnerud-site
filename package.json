@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "fmt": "prettier --write \"**/*.{ts,tsx}\"",
-    "pub": "npm run build && npm run start -- -H 192.168.1.71"
+    "pub": "npm run build && npm run start -- -H 192.168.1.145"
   },
   "dependencies": {
     "next": "15.3.4",
