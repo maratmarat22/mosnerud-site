@@ -32,7 +32,7 @@ export default function QuarryItem({ quarry }: QuarryItemProps) {
         {quarry.products.length > 1 && (
           <h2 className="text-gray-600">и другие</h2>
         )}
-        <p className="text-sm mt-2">{quarry.description}</p>
+        <p className="text-sm mt-2">{quarry.descriptionShort}</p>
       </div>
     </Link>
   );

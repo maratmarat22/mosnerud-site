@@ -8,6 +8,8 @@ import ProductContainer from '@/components/products/ProductContainer';
 import ProductItem from '@/components/products/ProductItem';
 import { productsMap } from '@/data/products';
 import Image from 'next/image';
+import { useState } from 'react';
+import OrderModal from '@/components/OrderModal';
 
 type QuarryPageProps = {
   quarry: Quarry | null;
@@ -25,46 +27,65 @@ export default function QuarryPage({ quarry }: QuarryPageProps) {
     }
   };
 
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => {
+    setShowModal(!showModal);
+  };
+
   if (!quarry)
     return <h1 className="text-center text-2xl font-bold mt-10">NOT FOUND</h1>;
 
   return (
     <>
       <Head>
-        <title>{`${quarry.name} карьер`}</title>
+        <title>{`${quarry.name}`}</title>
         <meta
           name="description"
-          content={quarry.description ?? 'Описание отсутствует'}
+          content={quarry.descriptionShort ?? 'Описание отсутствует'}
         />
       </Head>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-10 space-y-16">
+        {/* FAB-кнопка "назад" */}
         <Link
           href="/"
           onClick={handleClick}
-          aria-label="Вернуться назад"
-          className="fixed top-18 left-4 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg hover:bg-blue-100 text-gray-700 hover:text-blue-700 transition-colors duration-200"
+          aria-label="Назад"
+          className="fixed bottom-6 left-6 z-1 w-12 h-12 rounded-full bg-white shadow-md hover:bg-blue-100 text-gray-700 hover:text-blue-600 flex items-center justify-center transition-colors"
         >
-          <span className="text-xl">←</span>
+          ←
         </Link>
 
-        <div className="rounded-2xl overflow-hidden shadow-lg mb-6">
+        {showModal && <OrderModal handleShowModal={handleShowModal} />}
+
+        {/* 📸 Изображение */}
+        <div className="overflow-hidden rounded-xl shadow-lg">
           <Image
             src={quarry.images[0]}
             alt={quarry.name}
             width={1200}
             height={600}
-            className="w-full h-64 object-cover"
+            className="w-full h-72 object-cover"
           />
         </div>
 
-        <h1 className="text-4xl font-bold mb-4">{quarry.name}</h1>
-        <p className="text-lg text-gray-700 mb-8">
-          {quarry.description ?? 'Описание отсутствует'}
-        </p>
+        {/* 📖 Описание */}
+        <section className="bg-gray-50 rounded-xl p-8 shadow-sm">
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">
+            {quarry.name}
+          </h1>
+          <p className="text-base md:text-lg text-gray-700 whitespace-pre-wrap leading-relaxed">
+            {quarry.descriptionFull ??
+              quarry.descriptionShort ??
+              'Описание отсутствует'}
+          </p>
+        </section>
 
-        <section>
-          <h3 className="text-2xl font-semibold mb-4">Продукция:</h3>
+        {/* 📦 Продукция */}
+        <section className="border-t pt-10">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+            Продукция
+          </h2>
           <ProductContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {quarry.products.map((p) => (
               <ProductItem
@@ -75,6 +96,24 @@ export default function QuarryPage({ quarry }: QuarryPageProps) {
             ))}
           </ProductContainer>
         </section>
+
+        {/* ✉️ Контакты */}
+
+        <button
+          onClick={handleShowModal}
+          className="
+      bg-green-600 hover:bg-green-700
+      text-white font-semibold
+      rounded-full
+      px-8 py-4
+      shadow-lg
+      transition-colors duration-300
+      block
+      mx-auto
+    "
+        >
+          Заказать
+        </button>
       </div>
     </>
   );

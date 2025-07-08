@@ -15,7 +15,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-gray-900 text-white shadow-lg z-50">
+    <header className="fixed top-0 left-0 w-full bg-gray-900 text-white shadow-lg z-10">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Логотип */}
         <Link

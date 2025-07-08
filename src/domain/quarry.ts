@@ -1,7 +1,8 @@
 type Quarry = {
   id: string;
   name: string;
-  description: string | null;
+  descriptionShort?: string;
+  descriptionFull?: string;
   products: [string, number][];
   images: string[];
 };
