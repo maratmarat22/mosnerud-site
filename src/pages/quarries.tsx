@@ -23,7 +23,7 @@ export default function Quarries() {
   };
 
   useEffect(() => {
-    setSuggestedQuarries(filterQuarries(searchInput, searchCheckboxes));
+    setSuggestedQuarries(filterQuarries(searchInput /*, searchCheckboxes*/));
   }, [searchInput, searchCheckboxes]);
 
   return (

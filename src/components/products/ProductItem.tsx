@@ -6,12 +6,13 @@ import capitalize from '@/utils/capitalize';
 
 type ProductItemProps = {
   product: Product;
+  price: number;
 };
 
-export default function ProductItem({ product }: ProductItemProps) {
+export default function ProductItem({ product, price }: ProductItemProps) {
   return (
     <Link
-      href={`products/${product.id}`}
+      href={`/products/${product.id}`}
       className="group block rounded-2xl border border-gray-200 bg-white hover:shadow-lg transition-all duration-200 overflow-hidden max-w-xs"
     >
       <div className="relative w-60 h-40 overflow-hidden">
@@ -27,7 +28,7 @@ export default function ProductItem({ product }: ProductItemProps) {
           {capitalize(productI18n[product.name as keyof typeof productI18n])}
         </h1>
         <h2 className="text-md font-medium text-gray-700 tracking-wide">
-          {`от ${product.price.toLocaleString('ru-RU', {
+          {`от ${price.toLocaleString('ru-RU', {
             style: 'currency',
             currency: 'RUB',
           })}`}

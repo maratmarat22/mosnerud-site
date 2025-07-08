@@ -1,8 +1,8 @@
 type Quarry = {
   id: string;
   name: string;
-  type: 'sand' | 'gravel';
   description: string | null;
+  products: [string, number][];
   images: string[];
 };
 

@@ -1,8 +1,8 @@
 import Product from '@/domain/product';
 import { productsMap, productsList } from '@/data/products';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import productI18n from '@/i18n/en-ru/productName.json';
-import capitalize from '@/utils/capitalize';
+/*import productI18n from '@/i18n/en-ru/productName.json';
+import capitalize from '@/utils/capitalize';*/
 
 type ProductPageProps = {
   product: Product | null;
@@ -15,10 +15,10 @@ export default function ProductPage({ product }: ProductPageProps) {
 
   return (
     <div>
-      <h1>
+      {/*<h1>
         {capitalize(productI18n[product.name as keyof typeof productI18n])}
       </h1>
-      <h2>{product.price}</h2>
+      <h2>{product.price}</h2>*/}
     </div>
   );
 }
